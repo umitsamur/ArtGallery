@@ -1,0 +1,89 @@
+﻿@model IEnumerable<mvcproject.Models.ArtWork>
+@{ 
+    ViewBag.Title = "Product List";
+}
+    <p>
+        <a asp-action="Create" class="btn btn-primary btn-block ">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Title
+                    <!--
+                    @@Html.DisplayNameFor(model => model.title)
+                    -->
+                </th>
+                <th>
+                    Category Name
+                    <!--
+                    @@Html.DisplayNameFor(model => model.category_id)
+                    -->
+                </th>
+                <th>
+                    Price
+                    <!--
+                    @@Html.DisplayNameFor(model => model.price)
+                    -->
+                </th>
+                <th>
+                    File Location
+                    <!--
+                    @@Html.DisplayNameFor(model => model.file_location)
+                    -->
+                </th>
+                <th>
+                    User Name
+                    <!--
+                    @@Html.DisplayNameFor(model => model.user_id)
+                    -->
+                </th>
+                <th>
+                    Product Explanation
+                    <!--
+                    @@Html.DisplayNameFor(model => model.product_explanation)
+                    -->
+                </th>
+                <th>Operation</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.title)
+                    </td>
+                    <td>
+                        @foreach (var category in item.Categories)
+                        {
+                            @Html.DisplayFor(modelItem => category.cName)
+                        }
+                        @*Html.DisplayFor(modelItem => item.category_id)*@
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.price) TL
+                    </td>
+                    <td>
+                        <img class="card-img-top" style="width:130px;height:130px;" src="@item.file_location" />
+                    </td>
+                    <td>
+                        @foreach(var user in item.Users)
+                {
+                    @Html.DisplayFor(modelItem => user.name)
+                }
+                        @*Html.DisplayFor(modelItem =>  item.user_id)*@
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.product_explanation)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.art_id }, new { @class = "btn btn-success btn-block" })
+                        <!--@@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |-->
+                        @Html.ActionLink("Delete", "Delete", new { id = item.art_id }, new { onclick = "return confirm('Are you sure want to delete ?')", @class = "btn btn-danger btn-block" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
